@@ -22,7 +22,6 @@ Plug 'ncm2/ncm2' "completion
 Plug 'roxma/nvim-yarp' "completion 
 Plug 'ncm2/ncm2-bufword' "completion
 Plug 'ncm2/ncm2-path' "completion
-" Plug 'ncm2/ncm2-jedi' "completion (commented by now)
 
 call plug#end()
 
@@ -58,9 +57,9 @@ com! Json %!python -m json.tool
 """""""""""""""""""""""
 " PLUGIN KEY SETTINGS "
 """""""""""""""""""""""
+let NERDTreeIgnore = ['__pycache__', '\.pyc$']
 let g:python_highlight_all = 1
 let g:jedi#show_call_signatures = "1" 
-let NERDTreeIgnore = ['__pycache__', '\.pyc$']
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_fixers = {'python': ['black', 'isort']}
 let g:ale_fix_on_save = 1
@@ -71,15 +70,22 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 """""""""""""""""""""
 " USER KEY SETTINGS "
 """""""""""""""""""""
-nnoremap <c-z> <nop>
+" disable Ctrl-z keybidding
+nnoremap <c-z> <nop>  
+" set pdb breakpoint
 nnoremap <Leader>b oimport pdb;pdb.set_trace()<Esc>
+" run python in new window
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
+" update vimrc file
 nnoremap <F5> :so $MYVIMRC<CR>
+" format json file
 nnoremap <F8> :%!python -m json.tool <CR>
+" switch tabs with Tab
+nnoremap <C-i> :tabnext <CR>
+" saving at Ctrl-s
 noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> :update<CR>
 inoremap <silent> <C-S> :update<CR>
-nnoremap <C-i> :tabnext <CR>
 
 """""""""""""""
 " STATUS LINE "
