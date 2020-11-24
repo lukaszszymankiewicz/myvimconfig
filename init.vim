@@ -92,8 +92,6 @@ inoremap <silent> <C-S> :update<CR>
 """""""""""""""
 set statusline= 
 set statusline=%F
-set statusline+=%=
-set statusline+=%{strftime('%H:%M')}
 set guitablabel=%f
 
 """"""""
