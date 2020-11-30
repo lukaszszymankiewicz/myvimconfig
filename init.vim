@@ -8,7 +8,6 @@
 """""""""""
 " PLUGINS "
 """""""""""
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree' "file explorer
@@ -52,7 +51,6 @@ syntax on
 """""""""""""""""""""""
 map <C-n> :NERDTreeToggle<CR> 
 nnoremap <silent> <leader>f :FZF<cr>
-com! Json %!python -m json.tool
 
 """""""""""""""""""""""
 " PLUGIN KEY SETTINGS "
@@ -70,6 +68,8 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 """""""""""""""""""""
 " USER KEY SETTINGS "
 """""""""""""""""""""
+" format JSON file
+com! Json %!python -m json.tool
 " disable Ctrl-z keybidding
 nnoremap <c-z> <nop>  
 " set pdb breakpoint
