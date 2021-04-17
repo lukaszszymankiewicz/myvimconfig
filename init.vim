@@ -1,7 +1,6 @@
 """""""""""""
 " REMINDERS "
 """""""""""""
-
 " PlguInstall - to install new plugins
 " PlugClean - to clean unused plugins
 
@@ -10,17 +9,18 @@
 """""""""""
 call plug#begin('~/.vim/plugged')
 
-Plug 'preservim/nerdtree' "file explorer
-Plug 'davidhalter/jedi-vim' "python completion
-Plug 'sainnhe/gruvbox-material' "colors!
-Plug 'dense-analysis/ale' " syntax/linters/fixers
-Plug 'yuttie/comfortable-motion.vim' "c00l scrolling
-Plug 'vim-python/python-syntax' " c00l suntax higlighting for python
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } "fuzzy find
-Plug 'ncm2/ncm2' "completion 
-Plug 'roxma/nvim-yarp' "completion 
-Plug 'ncm2/ncm2-bufword' "completion
-Plug 'ncm2/ncm2-path' "completion
+Plug 'preservim/nerdtree'                                         " file explorer
+Plug 'sainnhe/gruvbox-material'                                   " colors!
+Plug 'dense-analysis/ale'                                         " syntax/linters/fixers
+Plug 'yuttie/comfortable-motion.vim'                              " c00l scrolling
+Plug 'vim-python/python-syntax'                                   " c00l syntax higlighting for python
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy find
+Plug 'ncm2/ncm2'                                                  " completion system
+Plug 'roxma/nvim-yarp'                                            " async completion 
+Plug 'davidhalter/jedi-vim'                                       " python completion
+Plug 'HansPinckaers/ncm2-jedi'                                    " python completion
+Plug 'ncm2/ncm2-bufword'                                          " buffer completion
+Plug 'ncm2/ncm2-path'                                             " files names/path completion
 
 call plug#end()
 
@@ -63,29 +63,21 @@ let g:ale_fixers = {'python': ['black', 'isort']}
 let g:ale_fix_on_save = 1
 
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif "close func param window
-autocmd BufEnter * call ncm2#enable_for_buffer()
 
 """""""""""""""""""""
 " USER KEY SETTINGS "
 """""""""""""""""""""
-" format JSON file
 com! Json %!python -m json.tool
-" disable Ctrl-z keybidding
 nnoremap <c-z> <nop>  
-" set pdb breakpoint
 nnoremap <Leader>b oimport pdb;pdb.set_trace()<Esc>
-" run python in new window
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
-" update vimrc file
 nnoremap <F5> :so $MYVIMRC<CR>
-" format json file
 nnoremap <F8> :%!python -m json.tool <CR>
-" switch tabs with Tab
+nnoremap <F10> :vsplit <bar> terminal gcc % -lm -o temp.o && ./temp.o %<CR>
 nnoremap <C-i> :tabnext <CR>
-" saving at Ctrl-s
 noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> :update<CR>
-inoremap <silent> <C-S> :update<CR>
+inoremap <silent> <C-S> <Esc> :update<CR>
 
 """""""""""""""
 " STATUS LINE "
@@ -97,22 +89,16 @@ set guitablabel=%f
 """"""""
 " NCM2 "
 """"""""
-set shortmess+=c
+autocmd BufEnter * call ncm2#enable_for_buffer()
 inoremap <c-c> <ESC>
+let ncm2#popup_delay = 5
+let ncm2#complete_length = [[1, 1]]
+let g:ncm2#matcher = 'substrfuzzy'
+set shortmess+=c
+
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-au User Ncm2Plugin call ncm2#register_source({
-        \ 'name' : 'css',
-        \ 'priority': 9,
-        \ 'subscope_enable': 1,
-        \ 'scope': ['css','scss'],
-        \ 'mark': 'css',
-        \ 'word_pattern': '[\w\-]+',
-        \ 'complete_pattern': ':\s*',
-        \ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
-        \ })
 
 """"""""""
 " COLORS "
