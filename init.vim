@@ -9,18 +9,19 @@
 """""""""""
 call plug#begin('~/.vim/plugged')
 
+Plug 'roxma/nvim-yarp'                                            " async completion 
+Plug 'ncm2/ncm2'                                                  " completion system
+Plug 'HansPinckaers/ncm2-jedi'                                    " python completion
+Plug 'ncm2/ncm2-bufword'                                          " buffer completion
+Plug 'ncm2/ncm2-path'                                             " files names/path completion
+Plug 'davidhalter/jedi-vim'                                       " python completion
+
 Plug 'preservim/nerdtree'                                         " file explorer
 Plug 'sainnhe/gruvbox-material'                                   " colors!
 Plug 'dense-analysis/ale'                                         " syntax/linters/fixers
 Plug 'yuttie/comfortable-motion.vim'                              " c00l scrolling
 Plug 'vim-python/python-syntax'                                   " c00l syntax higlighting for python
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy find
-Plug 'ncm2/ncm2'                                                  " completion system
-Plug 'roxma/nvim-yarp'                                            " async completion 
-Plug 'davidhalter/jedi-vim'                                       " python completion
-Plug 'HansPinckaers/ncm2-jedi'                                    " python completion
-Plug 'ncm2/ncm2-bufword'                                          " buffer completion
-Plug 'ncm2/ncm2-path'                                             " files names/path completion
 
 call plug#end()
 
@@ -43,7 +44,6 @@ set expandtab
 set autoindent
 set fileformat=unix
 set clipboard=unnamedplus
-set completeopt=noinsert,menuone,noselect
 syntax on
 
 """""""""""""""""""""""
@@ -57,7 +57,6 @@ nnoremap <silent> <leader>f :FZF<cr>
 """""""""""""""""""""""
 let NERDTreeIgnore = ['__pycache__', '\.pyc$']
 let g:python_highlight_all = 1
-let g:jedi#show_call_signatures = "1" 
 let g:ale_linters = {'python': ['flake8']}
 let g:ale_fixers = {'python': ['black', 'isort']}
 let g:ale_fix_on_save = 1
@@ -90,7 +89,9 @@ set guitablabel=%f
 " NCM2 "
 """"""""
 autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=menuone,noselect,noinsert
 inoremap <c-c> <ESC>
+
 let ncm2#popup_delay = 5
 let ncm2#complete_length = [[1, 1]]
 let g:ncm2#matcher = 'substrfuzzy'
@@ -99,6 +100,17 @@ set shortmess+=c
 inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+""""""""
+" JEDI "
+""""""""
+let g:jedi#show_call_signatures = "1" 
+let g:jedi#popup_on_dot = 0
+" let g:jedi#auto_initialization = 0 
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+" let g:jedi#smart_auto_mappings = 0
+" let g:jedi#completions_command = ""
 
 """"""""""
 " COLORS "
