@@ -1,13 +1,12 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'davidhalter/jedi-vim'                                       " python completion
 Plug 'preservim/nerdtree'                                         " file explorer
 Plug 'sainnhe/gruvbox-material'                                   " colors!
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }     " completion
 Plug 'zchee/deoplete-jedi'                                        " completion
 Plug 'yuttie/comfortable-motion.vim'                              " c00l scrolling
-Plug 'w0rp/ale'
 Plug 'vim-python/python-syntax'                                   " c00l syntax higlighting for python
+Plug 'w0rp/ale'                                                   " code linting/fixing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy find
 
 call plug#end()
@@ -83,7 +82,6 @@ nnoremap <leader><leader> :noh<CR>
 
 nnoremap <F5> :so $MYVIMRC<CR>
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
-nnoremap <F8> :%!python -m json.tool <CR>
 nnoremap <F10> :vsplit <bar> terminal gcc % -lm -o temp.o && ./temp.o %<CR>
 
 noremap <silent> <C-S> :update<CR>
