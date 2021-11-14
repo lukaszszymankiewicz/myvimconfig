@@ -4,7 +4,7 @@ Plug 'preservim/nerdtree'                                         " file explore
 Plug 'sainnhe/gruvbox-material'                                   " colors!
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }     " completion
 Plug 'zchee/deoplete-jedi'                                        " completion
-Plug 'yuttie/comfortable-motion.vim'                              " c00l scrolling
+Plug 'davidhalter/jedi-vim'                                       " shorcuts
 Plug 'vim-python/python-syntax'                                   " c00l syntax higlighting for python
 Plug 'w0rp/ale'                                                   " code linting/fixing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy find
@@ -18,8 +18,6 @@ set number
 set encoding=utf-8 
 set colorcolumn=100 
 set splitright 
-set exrc
-set secure
 
 """"""""""
 " PYTHON "
@@ -46,9 +44,10 @@ let g:jedi#environment_path = "venv"
 let g:jedi#show_call_signatures = "1" 
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 1
+let g:jedi#completions_enabled = 1
 
 let g:ale_linters = { 'c': ['clangd'], 'python': ['black', 'flake8'] }
-let g:ale_fixers = { 'python': ['black'] }
+let g:ale_fixers = { 'python': ['black', 'isort'] }
 let g:ale_fix_on_save = 0 
 let g:ale_linters_explicit = 1
 
@@ -73,7 +72,8 @@ vnoremap K :m '<-2<CR>gv=gv
 
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>==
-nnoremap <leader>b oimport pdb;pdb.set_trace()<Esc>
+
+nnoremap <leader>b obreakpoint()<Esc>==
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>
 nnoremap <leader>f :FZF<CR>
@@ -101,6 +101,8 @@ inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<CR>" : "\<CR>")
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd FileType python setlocal completeopt-=preview
+autocmd FileType c setlocal completeopt-=preview
+set completeopt-=preview
 set shortmess=at
 
 """"""""""
