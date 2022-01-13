@@ -80,13 +80,17 @@ nnoremap <leader>f :FZF<CR>
 nnoremap <leader>p :NERDTreeToggle<CR> 
 nnoremap <leader><leader> :noh<CR>
 
-nnoremap <F5> :so $MYVIMRC<CR>
+nnoremap <F5>:Goyo!<CR> :so $MYVIMRC<CR>
+nnoremap <F7> :so ~/.config/nvim/writing_init.vim<CR>:Goyo<CR>
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
 nnoremap <F10> :vsplit <bar> terminal gcc % -lm -o temp.o && ./temp.o %<CR>
 
 noremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> :update<CR>
 inoremap <silent> <C-S> <Esc> :update<CR>
+
+nmap <silent> <leader>[ <Plug>(ale_previous_wrap)zz
+nmap <silent> <leader>] <Plug>(ale_next_wrap)zz
 
 """""""""""""""
 " STATUS LINE "
