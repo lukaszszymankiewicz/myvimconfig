@@ -1,10 +1,10 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'preservim/nerdtree'                                         " file explorer
-Plug 'sainnhe/gruvbox-material'                                   " colors!
+Plug 'sainnhe/gruvbox-material'                                   " colors
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }     " completion
 Plug 'zchee/deoplete-jedi'                                        " completion
-Plug 'davidhalter/jedi-vim'                                       " shorcuts
+Plug 'davidhalter/jedi-vim'                                       " shortcuts
 Plug 'vim-python/python-syntax'                                   " c00l syntax higlighting for python
 Plug 'w0rp/ale'                                                   " code linting/fixing
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " fuzzy find
@@ -46,6 +46,8 @@ let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled = 1
 
+let g:ale_sign_column_always = 1
+let g:ale_list_window_size = 5
 let g:ale_linters = { 'c': ['clangd'], 'python': ['black', 'flake8'] }
 let g:ale_fixers = { 'python': ['black', 'isort'] }
 let g:ale_fix_on_save = 0 
@@ -73,12 +75,13 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>==
 
-nnoremap <leader>b obreakpoint()<Esc>==
+nnoremap <leader>b obreakpoint()<Esc><CR>==
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>p :NERDTreeToggle<CR> 
 nnoremap <leader><leader> :noh<CR>
+nnoremap <leader>q <C-w>p
 
 nnoremap <F5>:Goyo!<CR> :so $MYVIMRC<CR>
 nnoremap <F7> :so ~/.config/nvim/writing_init.vim<CR>:Goyo<CR>
