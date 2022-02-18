@@ -95,6 +95,14 @@ inoremap <silent> <C-S> <Esc> :update<CR>
 nmap <silent> <leader>[ <Plug>(ale_previous_wrap)zz
 nmap <silent> <leader>] <Plug>(ale_next_wrap)zz
 
+"""""""""""""""""""
+" CUSTOM COMMANDS "
+"""""""""""""""""""
+" opens search results in a window w/ links and highlight the matches
+command! -nargs=+ Grep execute 'silent grep! -rIn --exclude-dir ".mypy*" --exclude "*.{pyc, json, svg}" . -e <args>' | copen | execute 'silent /<args>'
+" shift-control-* Greps for the word under the cursor
+:nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>:noh<cr>
+
 """""""""""""""
 " STATUS LINE "
 """""""""""""""
