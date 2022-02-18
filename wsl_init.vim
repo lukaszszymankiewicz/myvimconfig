@@ -47,14 +47,14 @@ let g:jedi#show_call_signatures = "1"
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled = 1
-
+let g:jedi#goto_assignments_command = "<leader>q"
 let g:poetv_executables = ['poetry']
 
 " let g:ale_python_auto_pipenv = 1
 let g:ale_sign_column_always = 1
 let g:ale_list_window_size = 5
-let g:ale_linters = { 'c': ['clangd'], 'python': ['flake8', 'isort'] }
-let g:ale_fixers = { 'python': ['flake8', 'isort'] }
+let g:ale_linters = { 'c': ['clangd'], 'python': ['black', 'autoflake', 'isort'] }
+let g:ale_fixers = { 'python': ['black', 'autoflake', 'isort'] }
 let g:ale_fix_on_save = 0 
 let g:ale_linters_explicit = 1
 
@@ -89,9 +89,8 @@ nnoremap <leader>l :tabnext<CR>
 nnoremap <leader>f :FZF<CR>
 nnoremap <leader>p :NERDTreeToggle<CR> 
 nnoremap <leader><leader> :noh<CR>
-nnoremap <leader>q <C-w>p
 
-nnoremap <F5> :Goyo!<CR> :so $MYVIMRC<CR>
+nnoremap <F5> :so $MYVIMRC<CR>
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
 nnoremap <F8> :TagbarToggle<CR>
 
@@ -141,6 +140,6 @@ if system('uname -r') =~ "Microsoft"
 " CUSTOM COMMANDS "
 """""""""""""""""""
 " opens search results in a window w/ links and highlight the matches
-command! -nargs=+ Grep execute 'silent grep! -rIn . -e <args>' | copen | execute 'silent /<args>'
+command! -nargs=+ Grep execute 'silent grep! -rIn --exclude-dir ".mypy*" --exclude "*.{pyc, json, svg}" . -e <args>' | copen | execute 'silent /<args>'
 " shift-control-* Greps for the word under the cursor
 :nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>:noh<cr>
