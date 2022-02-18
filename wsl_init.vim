@@ -42,7 +42,7 @@ let NERDTreeIgnore = ['__pycache__', '\.pyc$']
 let g:python_highlight_all = 1
 let g:deoplete#enable_at_startup = 1
 
-let g:jedi#environment_path = "venv"
+" let g:jedi#environment_path = "venv"
 let g:jedi#show_call_signatures = "1" 
 let g:jedi#popup_select_first = 0
 let g:jedi#use_tabs_not_buffers = 1
@@ -50,11 +50,11 @@ let g:jedi#completions_enabled = 1
 
 let g:poetv_executables = ['poetry']
 
-let g:ale_python_auto_pipenv = 1
+" let g:ale_python_auto_pipenv = 1
 let g:ale_sign_column_always = 1
 let g:ale_list_window_size = 5
-let g:ale_linters = { 'c': ['clangd'], 'python': ['black', 'flake8'] }
-let g:ale_fixers = { 'python': ['black', 'isort'] }
+let g:ale_linters = { 'c': ['clangd'], 'python': ['flake8', 'isort'] }
+let g:ale_fixers = { 'python': ['flake8', 'isort'] }
 let g:ale_fix_on_save = 0 
 let g:ale_linters_explicit = 1
 
@@ -82,8 +82,8 @@ vnoremap K :m '<-2<CR>gv=gv
 nnoremap <leader>j :m .+1<CR>==
 nnoremap <leader>k :m .-2<CR>==
 
-nnoremap <leader>b obreakpoint()<Esc><CR>==
 inoremap <C-b> breakpoint()
+nnoremap <leader>b obreakpoint()<Esc><CR>==
 nnoremap <leader>h :tabprevious<CR>
 nnoremap <leader>l :tabnext<CR>
 nnoremap <leader>f :FZF<CR>
@@ -91,13 +91,11 @@ nnoremap <leader>p :NERDTreeToggle<CR>
 nnoremap <leader><leader> :noh<CR>
 nnoremap <leader>q <C-w>p
 
-nnoremap <F5>:Goyo!<CR> :so $MYVIMRC<CR>
+nnoremap <F5> :Goyo!<CR> :so $MYVIMRC<CR>
 nnoremap <F6> :vsplit <bar> terminal python %<CR>
-nnoremap <F7> :so ~/.config/nvim/writing_init.vim<CR>:Goyo<CR>
 nnoremap <F8> :TagbarToggle<CR>
-nnoremap <F10> :vsplit <bar> terminal gcc % -lm -o temp.o && ./temp.o %<CR>
 
-noremap <silent> <C-S> :update<CR>
+nnoremap <silent> <C-S> :update<CR>
 vnoremap <silent> <C-S> :update<CR>
 inoremap <silent> <C-S> <Esc> :update<CR>
 
@@ -138,3 +136,11 @@ if system('uname -r') =~ "Microsoft"
         autocmd TextYankPost * :call system('/mnt/c/windows/system32/clip.exe ',@")
         augroup END
     endif
+
+"""""""""""""""""""
+" CUSTOM COMMANDS "
+"""""""""""""""""""
+" opens search results in a window w/ links and highlight the matches
+command! -nargs=+ Grep execute 'silent grep! -rIn . -e <args>' | copen | execute 'silent /<args>'
+" shift-control-* Greps for the word under the cursor
+:nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>:noh<cr>
