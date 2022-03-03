@@ -42,19 +42,19 @@ let NERDTreeIgnore = ['__pycache__', '\.pyc$']
 let g:python_highlight_all = 1
 let g:deoplete#enable_at_startup = 1
 
-" let g:jedi#environment_path = "venv"
 let g:jedi#show_call_signatures = "1" 
 let g:jedi#popup_select_first = 0
+
 let g:jedi#use_tabs_not_buffers = 1
 let g:jedi#completions_enabled = 1
 let g:jedi#goto_assignments_command = "<leader>q"
 let g:poetv_executables = ['poetry']
 
-" let g:ale_python_auto_pipenv = 1
+let g:ale_python_auto_pipenv = 1
 let g:ale_sign_column_always = 1
 let g:ale_list_window_size = 5
-let g:ale_linters = { 'c': ['clangd'], 'python': ['black', 'autoflake', 'isort'] }
-let g:ale_fixers = { 'python': ['black', 'autoflake', 'isort'] }
+let g:ale_linters = {'python': ['black', 'isort'] }
+let g:ale_fixers = {'python': ['black', 'isort'] }
 let g:ale_fix_on_save = 0 
 let g:ale_linters_explicit = 1
 
@@ -69,6 +69,7 @@ let mapleader = " "
 com! Json %!python3 -m json.tool
 
 nnoremap <c-z> <nop>  
+nnoremap <c-a> ggVGy <c-o>
 inoremap <c-c> <ESC>
 
 nnoremap n nzzzv 
@@ -100,6 +101,7 @@ inoremap <silent> <C-S> <Esc> :update<CR>
 
 nmap <silent> <leader>[ <Plug>(ale_previous_wrap)zz
 nmap <silent> <leader>] <Plug>(ale_next_wrap)zz
+nnoremap <leader>y :let @a="poetry run pytest " . expand("%") . "::" <CR> 0/test//gc <CR> h"Ayt( :let @"=@a <CR> :noh<CR>b
 
 """""""""""""""
 " STATUS LINE "
