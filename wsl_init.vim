@@ -50,13 +50,15 @@ let g:jedi#completions_enabled = 1
 let g:jedi#goto_assignments_command = "<leader>q"
 let g:poetv_executables = ['poetry']
 
-let g:ale_python_auto_pipenv = 1
 let g:ale_sign_column_always = 1
 let g:ale_list_window_size = 5
-let g:ale_linters = {'python': ['black', 'isort'] }
-let g:ale_fixers = {'python': ['black', 'isort'] }
+let g:ale_linters = {'python': ['flake8']}
+let g:ale_fixers = {'python': ['black']}
 let g:ale_fix_on_save = 0 
 let g:ale_linters_explicit = 1
+
+" let g:poetv_auto_activate = 1
+" let g:poetv_set_environment = 1
 
 let g:tagbar_autofocus = 1
 
@@ -69,7 +71,6 @@ let mapleader = " "
 com! Json %!python3 -m json.tool
 
 nnoremap <c-z> <nop>  
-nnoremap <c-a> ggVGy <c-o>
 inoremap <c-c> <ESC>
 
 nnoremap n nzzzv 
@@ -142,6 +143,7 @@ if system('uname -r') =~ "Microsoft"
 " CUSTOM COMMANDS "
 """""""""""""""""""
 " opens search results in a window w/ links and highlight the matches
-command! -nargs=+ Grep execute 'silent grep! -rIn --exclude-dir ".mypy*" --exclude "*.{pyc, json, svg}" . -e <args>' | copen | execute 'silent /<args>'
+command! -nargs=+ Grep execute 'silent grep! -rIn --exclude-dir=".git" --exclude-dir=".mypy_cache" --exclude-dir=".pytest_cache" --exclude "*.{pyc, json, svg}" . -e <args>' | copen | execute 'silent /<args>'
+
 " shift-control-* Greps for the word under the cursor
 :nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr>:noh<cr>
